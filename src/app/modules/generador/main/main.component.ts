@@ -9,21 +9,36 @@ import { GeneradorService } from 'src/app/core/services/generador.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  tema: Tema = {} as Tema;
-  tipo: Tipo = {} as Tipo;
+  tema!: Tema;
+  tipo!: Tipo;
   carga: number = 0;
   intervalId: ReturnType<typeof setInterval> = setInterval(() => {}, 0);
 
   constructor(private generadorService: GeneradorService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.generar();
+  }
 
-  cargar() {
+  generar() {
     let randomData = this.generadorService.getRandom();
-
     this.tema = randomData.tema;
     this.tipo = randomData.tipo;
 
+    this.cargar();
+  }
+
+  regenerar(esTema: boolean) {
+    if (esTema) {
+      this.tema = this.generadorService.getRandomTema();
+    } else {
+      this.tipo = this.generadorService.getRandomTipo();
+    }
+
+    this.cargar();
+  }
+
+  cargar() {
     clearInterval(this.intervalId);
     this.carga = 0;
 

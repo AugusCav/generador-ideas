@@ -22,8 +22,16 @@ export class GeneradorService {
   }
 
   getRandom(): { tema: Tema; tipo: Tipo } {
-    const tema = this.temas[Math.floor(Math.random() * this.temas.length)];
-    const tipo = this.tipos[Math.floor(Math.random() * this.tipos.length)];
+    const tema = this.getRandomTema();
+    const tipo = this.getRandomTipo();
     return { tema, tipo };
+  }
+
+  getRandomTema(): Tema {
+    return this.temas[Math.floor(Math.random() * this.temas.length)];
+  }
+
+  getRandomTipo(): Tipo {
+    return this.tipos[Math.floor(Math.random() * this.tipos.length)];
   }
 }
